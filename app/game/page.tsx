@@ -41,31 +41,47 @@ const GamePage = () => {
       {endGame ? (
         <>
           <h1>
-            {trueAnswers} / {questions.length}
+            You scored{" "}
+            <span className="text-xl text-pink-400">{trueAnswers}</span> out of{" "}
+            <span className="text-xl text-pink-400">{questions.length}</span>{" "}
+            points
           </h1>
+          <button className="btn btn-active btn-secondary mt-6">
+            Reset Game
+          </button>
         </>
       ) : (
-        <>
-          <h1>
+        <div className="flex flex-col gap-6">
+          <h1 className="text-sky-400 text-xl">
             {currentIndex} / {questions.length} კითხვა
           </h1>
-          <h2>ნამიოკი #{currentIndex}</h2>
-          <h3>
-            {questions[currentIndex - 1].question} - ნამიოკი
-            {questions[currentIndex - 1].answer[0]}
+
+          <h2 className="text-sky-400 text-xl">ნამიოკი #{currentIndex}</h2>
+
+          <h3 className="text-sky-400 text-xl">
+            {questions[currentIndex - 1].question} - ნამიოკი{" "}
+            <span className="text-rose-500 text-2xl">
+              {questions[currentIndex - 1].answer[0]}
+            </span>
           </h3>
 
-          <div>
+          <div className="flex gap-3">
             <input
-              className="bg-white outline-none"
+              className="input input-bordered input-accent w-full max-w-xs"
               type="text"
               value={answers}
-              placeholder="პასუხი"
+              placeholder="Type here"
               onChange={handleChangeInput}
             />
-            <button onClick={handleSaveAnswers}>Submit</button>
+
+            <button
+              className="btn btn-active btn-accent"
+              onClick={handleSaveAnswers}
+            >
+              Submite
+            </button>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
