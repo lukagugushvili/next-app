@@ -10,9 +10,9 @@ export default function Home() {
           Are you ready to play{" "}
           <span className=" text-gray-400">ნამიოკობანა?</span>
         </h3>
-        <button className="btn btn-accent btn-outline">
-          <Link href="/">Click It</Link>
-        </button>
+        <Link className="btn btn-accent btn-outline" href="/game">
+          Click It
+        </Link>
       </div>
     </main>
   );
