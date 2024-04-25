@@ -11,13 +11,14 @@ const GamePage = () => {
   const [answers, setAnswers] = useState<string>("");
   const [trueAnswers, setTrueAnswers] = useState<number>(0);
   const [endGame, setEndGame] = useState<boolean>(false);
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnswers(e.target.value);
   };
 
   const handleEndGame = () => {
-    if (currentIndex === 5) {
+    if (currentIndex >= 5) {
       setEndGame(true);
       console.log(endGame);
     }
@@ -29,11 +30,18 @@ const GamePage = () => {
       if (questions[currentIndex - 1].answer === answers) {
         setTrueAnswers(trueAnswers + 1);
       }
+      setCurrentIndex(currentIndex + 1);
+      setErrorMsg("");
     } else {
-      alert("error");
+      setErrorMsg("Fill in the input !!!");
     }
-    setCurrentIndex(currentIndex + 1);
     setAnswers("");
+  };
+
+  const handleResetGame = () => {
+    setEndGame(false);
+    setCurrentIndex(1);
+    setTrueAnswers(0);
   };
 
   return (
@@ -46,7 +54,10 @@ const GamePage = () => {
             <span className="text-xl text-pink-400">{questions.length}</span>{" "}
             points
           </h1>
-          <button className="btn btn-active btn-secondary mt-6">
+          <button
+            className="btn btn-active btn-secondary mt-6"
+            onClick={handleResetGame}
+          >
             Reset Game
           </button>
         </>
@@ -65,21 +76,25 @@ const GamePage = () => {
             </span>
           </h3>
 
-          <div className="flex gap-3">
-            <input
-              className="input input-bordered input-accent w-full max-w-xs"
-              type="text"
-              value={answers}
-              placeholder="Type here"
-              onChange={handleChangeInput}
-            />
+          <div className="flex flex-col gap-4">
+            <div className="flex gap-3">
+              <input
+                className="input input-bordered input-accent w-full max-w-xs"
+                type="text"
+                value={answers}
+                placeholder="Type here"
+                onChange={handleChangeInput}
+              />
 
-            <button
-              className="btn btn-active btn-accent"
-              onClick={handleSaveAnswers}
-            >
-              Submite
-            </button>
+              <button
+                className="btn btn-active btn-accent"
+                onClick={handleSaveAnswers}
+              >
+                Submite
+              </button>
+            </div>
+
+            <p className="text-red-900 ">{errorMsg}</p>
           </div>
         </div>
       )}
